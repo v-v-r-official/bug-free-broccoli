@@ -1,7 +1,7 @@
 import os
 import time
 import datetime
-
+import pytz
 import pyrogram
 
 user_session_string = os.environ.get("user_session_string")
@@ -38,8 +38,9 @@ def main():
                     edit_text += f"**➩ @{bot}**    `✅`\n"
                 user_client.read_history(bot)
 
-            utc_now = datetime.datetime.utcnow()
-            ist_now = utc_now + datetime.timedelta(minutes=30, hours=5)
+            utc_now = datetime.datetime.now(pytz.timezone('UTC')).strftime("%d/%m/%y %I:%M:%S %p")
+
+            ist_now = datetime.datetime.now(pytz.timezone('Asia/Kolkata')).strftime("%d/%m/%y %I:%M:%S %p")
 
             edit_text += f"\n🎯 𝙇𝙖𝙨𝙩 𝙪𝙥𝙙𝙖𝙩𝙚𝙙 & 𝙘𝙝𝙚𝙘𝙠𝙚𝙙 𝙤𝙣: \n\n__{str(ist_now)}__ 🇮🇳 IST\n__{utc_now}__ 🌎 UTC"
 

@@ -1,1 +1,5 @@
+# To run bot 
 pyrogram[fast]
+tgcrypto
+# For time 👀🥺
+pytz
