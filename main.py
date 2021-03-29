@@ -31,7 +31,7 @@ def main():
     with user_client:
         while True:
             print("[INFO] starting to check uptime..")
-            edit_text = f"<b>Fayas Bots Online Status:</b>\n\n\n"
+            edit_text = f"<u><b>Fayas Bots Online Status</u></b>\n\n"
             for bot in bots:
                 print(f"[INFO] checking @{bot}")
                 snt = user_client.send_message(bot, '/start')
