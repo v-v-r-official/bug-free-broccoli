@@ -2,7 +2,7 @@
   "name": "Bot-Status",
   "description": "A user bot for stat telegram bots online status",
   "repository": "https://github.com/FayasNoushad/Bot-Status-UserBot",
-  "keywords": ["telegram", "bot status", "with user","update channel"],
+  "keywords": ["telegram", "bot status", "user bot"],
   "env": {
     "API_ID": {
       "description": "Your APP_ID from https://my.telegram.org/apps "
