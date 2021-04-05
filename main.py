@@ -27,9 +27,6 @@ status_message_id = int(os.environ.get("STATUS_MESSAGE_ID"))
 
 # time and limits
 time = int(os.environ.get("TIME"))
-sleeping_time = time * 60
-time_in_hours = time / 60
-
 
 user_client = pyrogram.Client(user_session_string, api_id=api_id, api_hash=api_hash)
 
@@ -52,10 +49,10 @@ def main():
                     edit_text += f"\n🤖 <b>Bot :-</b> <a href='https://telegram.me/{bot}'>{bot}</a>\n<b>⚜ Status :-</b> <code>Online</code> ✅\n"
                 user_client.read_history(bot)
             utc_now = datetime.datetime.now(pytz.timezone('UTC')).strftime("%I:%M %p %d/%m/%y")
-            edit_text += f"""\n<b>Last checked:</b>\n{str(utc_now)} UTC ⏰\n<code>Updated on every {time_in_hours} hours</code>"""
+            edit_text += f"""\n<b>Last checked:</b>\n{str(utc_now)} UTC ⏰\n<code>Updated on every {time / 60} hours</code>"""
             user_client.edit_message_text(update_channel, status_message_id, text=edit_text, disable_web_page_preview=True, parse_mode="html")
-            print(f"[INFO] everything done! sleeping for {time_in_hours} hours...")
-            time.sleep(sleeping_time)
+            print(f"[INFO] everything done! sleeping for {time / 60} hours...")
+            time.sleep(time * 60)
 
 
 main()
