@@ -4,6 +4,12 @@ import datetime
 import pytz
 import pyrogram
 
+
+
+# api strings from my.telegram.org
+api_id = int(os.environ.get("API_ID"))
+api_hash = os.environ.get("API_HASH")
+
 # your session strings
 user_session_string = os.environ.get("SESSION_STRING")
 
@@ -19,9 +25,11 @@ update_channel = os.environ.get("UPDATE_CHANNEL")
 # message id of your channel bot status message
 status_message_id = int(os.environ.get("STATUS_MESSAGE_ID"))
 
-# api strings from my.telegram.org
-api_id = int(os.environ.get("API_ID"))
-api_hash = os.environ.get("API_HASH")
+# time and limits
+time = int(os.environ.get("TIME"))
+sleeping_time = time * 60
+time_in_hours = time / 60
+
 
 user_client = pyrogram.Client(user_session_string, api_id=api_id, api_hash=api_hash)
 
@@ -33,7 +41,7 @@ def main():
             for bot in bots:
                 print(f"[INFO] checking @{bot}")
                 snt = user_client.send_message(bot, '/start')
-                time.sleep(0)
+                time.sleep(5)
                 msg = user_client.get_history(bot, 1)[0]
                 if snt.message_id == msg.message_id:
                     print(f"[WARNING] @{bot} is down")
@@ -44,10 +52,10 @@ def main():
                     edit_text += f"\n🤖 <b>Bot :-</b> <a href='https://telegram.me/{bot}'>{bot}</a>\n<b>⚜ Status :-</b> <code>Online</code> ✅\n"
                 user_client.read_history(bot)
             utc_now = datetime.datetime.now(pytz.timezone('UTC')).strftime("%I:%M %p %d/%m/%y")
-            edit_text += f"""\n<b>Last checked:</b>\n{str(utc_now)} UTC ⏰\n<code>Updated on every 3 hours</code>"""
+            edit_text += f"""\n<b>Last checked:</b>\n{str(utc_now)} UTC ⏰\n<code>Updated on every {time_in_hours} hours</code>"""
             user_client.edit_message_text(update_channel, status_message_id, text=edit_text, disable_web_page_preview=True, parse_mode="html")
-            print(f"[INFO] everything done! sleeping for 3 hours...")
-            time.sleep(180 * 60)
+            print(f"[INFO] everything done! sleeping for {time_in_hours} hours...")
+            time.sleep(sleeping_time)
 
 
 main()
