@@ -36,8 +36,8 @@ def main():
             for bot in bots:
                 print(f"[INFO] checking @{bot}")
                 snt = user_client.send_message(bot, '/start')
-                time.sleep(5)
                 msg = user_client.get_history(bot, 1)[0]
+                time.sleep(30)
                 if snt.message_id == msg.message_id:
                     print(f"[WARNING] @{bot} is down")
                     edit_text += f"\n🤖 <b>Bot :-</b> <a href='https://telegram.me/{bot}'>{bot}</a>\n<b>⚜ Status :-</b> <code>Offline</code> ❎\n"
