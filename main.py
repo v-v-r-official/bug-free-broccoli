@@ -23,7 +23,7 @@ update_channel = os.environ.get("UPDATE_CHANNEL")
 # message id of your channel bot status message
 status_message_id = int(os.environ.get("STATUS_MESSAGE_ID"))
 
-# time and limits
+# time and limits ( in minutes )
 timelimit = int(os.environ.get("TIME"))
 
 user_client = pyrogram.Client(user_session_string, api_id=api_id, api_hash=api_hash)

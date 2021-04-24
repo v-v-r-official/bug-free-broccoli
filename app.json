@@ -23,7 +23,7 @@
       "description": "Message id of your channel bot status message"
     },
     "TIME": {
-      "description": "Time for sleeping (in seconds)"
+      "description": "Time for sleeping (in minutes)"
     },
     "SESSION_STRING":{
       "description": "Your session strings"
