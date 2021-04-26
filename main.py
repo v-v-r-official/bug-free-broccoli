@@ -47,7 +47,8 @@ def main():
                     edit_text += f"\n🤖 <b>Bot :-</b> <a href='https://telegram.me/{bot}'>{bot}</a>\n<b>⚜ Status :-</b> <code>Online</code> ✅\n"
                 user_client.read_history(bot)
             utc_now = datetime.datetime.now(pytz.timezone('UTC')).strftime("%I:%M %p %d/%m/%y")
-            edit_text += f"""\n<b>Last checked:</b>\n{str(utc_now)} UTC ⏰\n<code>Updated on every {round(timelimit / 60)} hours</code>"""
+            utc_link = datetime.datetime.now(pytz.timezone('UTC')).strftime("%I%3A%M+%p+%d%2F%m%2F%y")
+            edit_text += f"""\n<b>Last checked:</b>\n[{str(utc_now)} UTC]({utc_link}+UTC+Local+Time) ⏰\n<code>Updated on every {round(timelimit / 60)} hours</code>"""
             user_client.edit_message_text(update_channel, status_message_id, text=edit_text, disable_web_page_preview=True, parse_mode="html")
             print(f"[INFO] everything done! sleeping for {round(timelimit / 60)} hours...")
             time.sleep(timelimit * 60)
