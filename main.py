@@ -26,7 +26,11 @@ status_message_id = int(os.environ.get("STATUS_MESSAGE_ID"))
 # time and limits ( in minutes )
 timelimit = int(os.environ.get("TIME"))
 
-user_client = pyrogram.Client(user_session_string, api_id=api_id, api_hash=api_hash)
+user_client = pyrogram.Client(
+    user_session_string,
+    api_id=api_id,
+    api_hash=api_hash
+)
 
 def main():
     with user_client:
@@ -35,23 +39,34 @@ def main():
             edit_text = f"<u><b>My Bots Online Status</u></b>\n"
             for bot in bots:
                 print(f"[INFO] checking @{bot}")
-                snt = user_client.send_message(bot, '/start')
+                snt = user_client.send_message(
+                    bot,
+                    '/start'
+                )
                 time.sleep(30)
                 msg = user_client.get_history(bot, 1)[0]
                 if snt.message_id == msg.message_id:
                     print(f"[WARNING] @{bot} is down")
                     edit_text += f"\n🤖 <b>Bot :-</b> <a href='https://telegram.me/{bot}'>{bot}</a>\n<b>⚜ Status :-</b> <code>Offline</code> ❎\n"
-                    user_client.send_message(bot_owner, f"@{bot} status: <code>Down</code>")
+                    user_client.send_message(
+                        bot_owner,
+                        f"@{bot} status: <code>Down</code>"
+                    )
                 else:
                     print(f"[INFO] all good with @{bot}")
                     edit_text += f"\n🤖 <b>Bot :-</b> <a href='https://telegram.me/{bot}'>{bot}</a>\n<b>⚜ Status :-</b> <code>Online</code> ✅\n"
                 user_client.read_history(bot)
+            limit = round(timelimit / 60)
             utc_now = datetime.datetime.now(pytz.timezone('UTC')).strftime("%I:%M %p %d/%m/%y")
-            utc_link = datetime.datetime.now(pytz.timezone('UTC')).strftime("%I%3A%M+%p+%d%2F%m%2F%y")
-            edit_text += f"""\n<b>Last checked:</b>\n[{str(utc_now)} UTC]({utc_link}+UTC+Local+Time) ⏰\n<code>Updated on every {round(timelimit / 60)} hours</code>"""
-            user_client.edit_message_text(update_channel, status_message_id, text=edit_text, disable_web_page_preview=True)
-            print(f"[INFO] everything done! sleeping for {round(timelimit / 60)} hours...")
+            edit_text += f"\n<b>Last checked:</b>\n{str(utc_now)} UTC ⏰"
+            edit_text += f"\n<code>Updated on every {limit} hours</code>"
+            user_client.edit_message_text(
+                update_channel,
+                status_message_id,
+                text=edit_text,
+                disable_web_page_preview=True
+            )
+            print(f"[INFO] everything done! sleeping for {limit} hours...")
             time.sleep(timelimit * 60)
-
 
 main()
