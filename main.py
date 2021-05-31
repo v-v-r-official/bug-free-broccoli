@@ -1,3 +1,6 @@
+# Made with Python3
+# (C) odysseusmax
+
 import os
 import time
 import datetime
