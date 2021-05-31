@@ -1,5 +1,5 @@
 # Made with Python3
-# (C) odysseusmax
+# (C) Christy Roys
 
 import os
 import time
